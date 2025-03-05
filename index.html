@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>❤</title>
+    <link rel="stylesheet" href="css/master.css">
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        section {
+            background: url(imagen/baloto/section-bg.png) no-repeat;
+            justify-content: center;
+            align-items: center;
+            width: 340px;
+            height: 545px;
+            padding: 0;
+        }
+
+        .back {
+            background: url(imagen/baloto/snoopy-bg.jpg) no-repeat;
+            height: 500px;
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        .title {
+            /* border: 2px solid red; */
+            padding-top: 30px;
+            font-size: 30px;
+            color: white;
+            text-shadow: 2px 2px 5px rgb(0, 140, 255);
+        }
+
+        .slot-machine {
+            display: flex;
+            justify-content: center;
+            margin-top: 80px;
+        }
+
+        .reel {
+            width: 80px;
+            height: 80px;
+            border: 2px solid black;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5px;
+            background: white;
+            overflow: hidden;
+            position: relative;
+            font-size: 80px;
+        }
+
+        .reel img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            animation: none;
+        }
+
+        .spinning {
+            animation: spin 0.1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(100%);
+            }
+        }
+
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #df544a;
+            border: none;
+            border-radius: 5px;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #f72718;
+            transform: scale(1.1);
+        }
+        p{
+            /* border: 2px solid red; */
+            color: aliceblue;
+            font-size: medium;
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav class="controls">
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path fill="#ffffff"
+                    d="M346.7 6C337.6 17 320 42.3 320 72c0 40 15.3 55.3 40 80s40 40 80 40c29.7 0 55-17.6 66-26.7c4-3.3 6-8.2 6-13.3s-2-10-6-13.2c-11.4-9.1-38.3-26.8-74-26.8c-32 0-40 8-40 8s8-8 8-40c0-35.7-17.7-62.6-26.8-74C370 2 365.1 0 360 0s-10 2-13.3 6zM244.6 136c-40 0-77.1 18.1-101.7 48.2l60.5 60.5c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0l-55.3-55.3 0 .1L2.2 477.9C-2 487-.1 497.8 7 505s17.9 9 27.1 4.8l134.7-62.4-52.1-52.1c-6.2-6.2-6.2-16.4 0-22.6s16.4-6.2 22.6 0L199.7 433l100.2-46.4c46.4-21.5 76.2-68 76.2-119.2C376 194.8 317.2 136 244.6 136z" />
+            </svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>🌹😊</h1>
+            <h2>para ti</h2>
+        </header>
+        <section>
+            <div class="back">
+                <h1 class="title">Tragamonedas</h1>
+                <div class="slot-machine">
+                    <div class="reel" id="reel1"><img src="img/question.png" alt="?" id="img1"></div>
+                    <div class="reel" id="reel2"><img src="img/question.png" alt="?" id="img2"></div>
+                    <div class="reel" id="reel3"><img src="img/question.png" alt="?" id="img3"></div>
+                </div>
+                <button class="button" id="spinButton" onclick="spin()">Girar</button>
+                <p id="result"></p>
+            </div>
+
+        </section>
+    </main>
+    <script>
+        const symbols = [
+            { name: '1', src: 'imagen/baloto/1.png' },
+            { name: '2', src: 'imagen/baloto/2.png' },
+            { name: '3', src: 'imagen/baloto/3.png' },
+            { name: '4', src: 'imagen/baloto/4.png' },
+            { name: '5', src: 'imagen/baloto/5.png' },
+            { name: '6', src: 'imagen/baloto/6.png' },
+            { name: '7', src: 'imagen/baloto/7.png' }
+        ];
+
+        const messages = {
+            '1': '¡Un paseo tranquilo!',
+            '2': '¡Mira estos musculos!',
+            '3': '¡una flor para otra flor! 🌹',
+            '4': '¡Derrochador de estilo!',
+            '5': '¡¿Un helao?!',
+            '6': '¡Me recuerda a alguien!',
+            '7': '¡Mua!💋'
+        };
+
+        function spin() {
+    document.getElementById("spinButton").disabled = true;
+    document.getElementById("result").textContent = "";
+    let result = [];
+
+    for (let i = 1; i <= 3; i++) {
+        let img = document.getElementById(`img${i}`);
+        img.classList.add("spinning");
+        
+        let interval = setInterval(() => {
+            let randomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+            img.src = randomSymbol.src;
+        }, 100);
+
+        let stopTime = 1000 + i * 500;
+
+        setTimeout(() => {
+            clearInterval(interval);
+            img.classList.remove("spinning");
+
+            let finalSymbol;
+            if (i === 3 && Math.random() < 0.9) {  
+                // 50% de probabilidades de hacer que el tercer símbolo coincida con el primero
+                finalSymbol = symbols.find(s => s.name === result[0]);
+            } else {
+                finalSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+            }
+
+            img.src = finalSymbol.src;
+            result.push(finalSymbol.name);
+
+            if (result.length === 3) checkWin(result);
+        }, stopTime);
+    }
+}
+
+
+        function checkWin(result) {
+            document.getElementById("spinButton").disabled = false;
+            if (result[0] === result[1] && result[1] === result[2]) {
+                document.getElementById("result").textContent = messages[result[0]];
+            } else {
+                document.getElementById("result").textContent = "Sigue intentando...";
+            }
+        }
+    </script>
+</body>
+
+</html>
